@@ -1,6 +1,9 @@
 //crea un dialog box para el sign in
 //cambia la vista
 
+
+
+// DICE SI HAY ALGUIEN LOGUEADO O NO
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     // User is signed in.
