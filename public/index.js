@@ -47,7 +47,7 @@ $("#signUpBtn").click(
 			$("#loginBtn").show();
 
 			firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error){
-
+				console.log("User signup Successful");
 				$("#loginError").show().text(error.message);
 				
 				$("#loginProgress").hide();
@@ -74,7 +74,7 @@ $("#loginBtn").click(
 			$("#loginBtn").show();
 
 			firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error){
-
+				console.log("User Login Successful");
 				$("#loginError").show().text(error.message);
 				
 				$("#loginProgress").hide();
@@ -91,7 +91,7 @@ $("#signOutBtn").click(
 
 		firebase.auth().signOut().then(function() {
 		  // Sign-out successful.
-
+		  console.log("User Logout Successful");
 
 		}, function(error) {
 		  // An error happened.
