@@ -37,16 +37,39 @@ firebase.auth().onAuthStateChanged(function(user) {
 /* SIGN UP PROCESS */
 
 $("#signUpBtn").click(
-	function() {
+  function() {
+		
 		var email = $("#loginEmail").val();
 		var password = $("#loginPassword").val();
+    //quitar
+		var nombre = $("#nombre").val();
+      	var apellido = $("#apellido").val();
+      	var cedula = $("#cedula").val();
+     	var telefono = $("#telefono").val();
+
+
 
 		//si es distinto de null ambos campos muestra que esta cargando y esconde el boton
 		if(email != "" && password != ""){
 			$("#loginProgress").hide();
 			$("#loginBtn").show();
 
-			firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error){
+			firebase.auth().createUserWithEmailAndPassword(email, password).then(function(){
+				var user = firebase.auth().currentUser;
+
+				//
+				firebase.database().ref('usuario/'+user.uid).set({
+					Nombre: nombre,
+			        Apellido: apellido,
+			        Telefono: telefono,
+		            Cedula: cedula,
+		            Correo: email
+				}).then(function(error){
+
+				}, function(error){
+					//alert(error.code);
+				});
+
 				console.log("User signup Successful");
 				$("#loginError").show().text(error.message);
 				
@@ -56,7 +79,6 @@ $("#signUpBtn").click(
 			});
 		}
 	});
-
 
 
 
@@ -101,7 +123,4 @@ $("#signOutBtn").click(
 
 
 	});
-
-
-
 

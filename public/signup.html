@@ -6,12 +6,12 @@
     <!-- font family - google fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-orange.min.css"/>
-    <link rel="stylesheet" type="text/css" href="dialog-polyfill.css" />
+    <link rel="stylesheet" type="text/css" href="css/dialog-polyfill.css" />
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <script src="dialog-polyfill.js"></script>
 
     <!-- main stylesheet -->
-    <link rel="stylesheet" href="style.css" />  
+    <link rel="stylesheet" href="css/style.css" />  
 
 
       <!-- Fijar foto de fondo  -->
@@ -45,12 +45,29 @@
         
         <!-- barra para ingresar email y password -->
           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" id="nombre">
+            <label class="mdl-textfield__label" for="sample3">Nombre...</label>
+          </div>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" id="apellido">
+            <label class="mdl-textfield__label" for="sample3">Apellido...</label>
+          </div>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" id="telefono">
+            <label class="mdl-textfield__label" for="sample3">Telefono...</label>
+          </div>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" id="cedula">
+            <label class="mdl-textfield__label" for="sample3">Cedula...</label>
+          </div>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
             <input class="mdl-textfield__input" type="text" id="loginEmail">
             <label class="mdl-textfield__label" for="sample3">Email...</label>
           </div>
           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
             <input class="mdl-textfield__input" type="text" id="loginPassword">
             <label class="mdl-textfield__label" for="sample3">Password...</label>
+          </div>
           </div>
           <!-- FIN barra para ingresar email y password -->
 
@@ -96,10 +113,52 @@
       <div class="mdl-layout__drawer">
       </div>
     </div>
+<!--
+<script>
+    const loginEmail = document.getElementById('loginEmail');
+    const loginPassword = document.getElementById('loginPassword');
+    const signUpBtn = document.getElementById('signUpBtn');
+    const nombre = document.getElementById('nombre');
+    const apellido = document.getElementById('apellido');
+    const cedula = document.getElementById('cedula');
+    const telefono = document.getElementById('telefono');
+   
+    
+    signUpBtn.addEventListener('click', e => {
+      const email = loginEmail.value;
+      const password = loginPassword.value;
+      const auth = firebase.auth();
+      const nombre = nombre.value;
+      const apellido = apellido.value;
+      const cedula = cedula.value;
+      const telefono = telefono.value;
+
+      const promise =  firebase.auth().createUserWithEmailAndPassword(email, password);
+      promise.catch(e => console.log(e.message));
+       //realtima authentication listener
+        firebase.auth().onAuthStateChanged(firebaseUser => {
+        if(firebaseUser){
+          console.log(firebaseUser);
+         
+        }else{
+          console.log('No has iniciado sesion');
+     
+        }
+   });
+       //PRUEBA: meto los datos en la base de datos
+      var firebaseUser = firebase.auth().currentUser;
+        firebase.database().ref("user/" + firebaseUser.uid).set({
+          Nombre: nombre,
+          Apellido: apellido,
+          Telefono: telefono,
+          Cedula: cedula
+        })
+    });
 
 
+</script>
 
-
+-->
 
   <script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
   <script>

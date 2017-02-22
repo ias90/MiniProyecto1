@@ -1,6 +1,9 @@
 //crea un dialog box para el sign in
 //cambia la vista
 
+
+
+// DICE SI HAY ALGUIEN LOGUEADO O NO
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     // User is signed in.
@@ -29,20 +32,30 @@ firebase.auth().onAuthStateChanged(function(user) {
   }
 });
 
-/* SIGN UP PROCESS 
+
+
+/* SIGN UP PROCESS */
 
 $("#signUpBtn").click(
 	function() {
+		
 		var email = $("#loginEmail").val();
 		var password = $("#loginPassword").val();
+    //quitar
+		const nombre = $("#nombre").val();
+      	const apellido = $("#apellido").val();
+      	const cedula = $("#cedula").val();
+     	const telefono = $("#telefono").val();
+
+
 
 		//si es distinto de null ambos campos muestra que esta cargando y esconde el boton
 		if(email != "" && password != ""){
-			$("#loginProgress").show();
-			$("#loginBtn").hide();
+			$("#loginProgress").hide();
+			$("#loginBtn").show();
 
 			firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error){
-
+				console.log("User signup Successful");
 				$("#loginError").show().text(error.message);
 				
 				$("#loginProgress").hide();
@@ -50,7 +63,16 @@ $("#signUpBtn").click(
 
 			});
 		}
-	});*/
+		//quitar
+		var firebaseUser = firebase.auth().currentUser;
+        firebase.database().ref("user/" + firebaseUser.uid).set({
+          Nombre: nombre,
+          Apellido: apellido,
+          Telefono: telefono,
+          Cedula: cedula
+        })
+	});
+
 
 
 /* LOGIN PROCESS */
@@ -63,11 +85,11 @@ $("#loginBtn").click(
 
 		//si es distinto de null ambos campos muestra que esta cargando y esconde el boton
 		if(email != "" && password != ""){
-			$("#loginProgress").show();
-			$("#loginBtn").hide();
+			$("#loginProgress").hide();
+			$("#loginBtn").show();
 
 			firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error){
-
+				console.log("User Login Successful");
 				$("#loginError").show().text(error.message);
 				
 				$("#loginProgress").hide();
@@ -84,7 +106,7 @@ $("#signOutBtn").click(
 
 		firebase.auth().signOut().then(function() {
 		  // Sign-out successful.
-
+		  console.log("User Logout Successful");
 
 		}, function(error) {
 		  // An error happened.
@@ -94,3 +116,7 @@ $("#signOutBtn").click(
 
 
 	});
+
+
+
+
