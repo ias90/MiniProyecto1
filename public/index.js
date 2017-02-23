@@ -130,3 +130,35 @@ $("#signOutBtn").click(
 
 	});
 
+//datos
+$("#submitBtn").click(
+  function() {
+		
+		var email = $("#loginEmail").val();
+		var password = $("#loginPassword").val();
+    //quitar
+		var nombre = $("#nombre").val();
+      	var edad = $("#edad").val();
+      	var historia = $("#historia").val();
+     	var adoptado = $("#adoptado").val();
+
+		//si es distinto de null ambos campos muestra que esta cargando y esconde el boton
+
+				var user = firebase.auth().currentUser;
+				//
+				firebase.database().ref('usuario/'+user.uid+'/mascota/').set({
+					nombre: nombre,
+			        edad: edad,
+			        historia: historia,
+		            adoptado: adoptado,
+				}).then(function(){
+					console.log("mascota agregada");
+					window.location.replace("index.html");
+
+				}, function(error){
+					alert(error.code);
+				});
+
+				console.log("User signup Successful");
+	});
+
