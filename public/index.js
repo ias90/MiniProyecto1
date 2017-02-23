@@ -66,7 +66,10 @@ $("#signUpBtn").click(
 			        Telefono: telefono,
 		            Cedula: cedula,
 		            Correo: email
-				}).then(function(error){
+
+				}).then(function(){
+					console.log("User signup Successful");
+					window.location.replace("index.html");
 
 				}, function(error){
 					//alert(error.code);
@@ -133,9 +136,6 @@ $("#signOutBtn").click(
 //datos
 $("#submitBtn").click(
   function() {
-		
-		var email = $("#loginEmail").val();
-		var password = $("#loginPassword").val();
     //quitar
 		var nombre = $("#nombre").val();
       	var edad = $("#edad").val();
@@ -145,7 +145,6 @@ $("#submitBtn").click(
 		//si es distinto de null ambos campos muestra que esta cargando y esconde el boton
 
 				var user = firebase.auth().currentUser;
-				//
 				firebase.database().ref('usuario/'+user.uid+'/mascota/').set({
 					nombre: nombre,
 			        edad: edad,
@@ -162,3 +161,28 @@ $("#submitBtn").click(
 				console.log("User signup Successful");
 	});
 
+/*
+$("#btnUpload").addEventListener('change',function(e) {
+    var user = firebase.auth().currentUser;
+
+    var file = e.target.files;
+	var cont = 0;
+	//var file = $("#file").val();
+
+		for(var i=0; i<e.target.files.length; i++){
+			cont++;
+		}
+			if(cont>3)
+			{
+				alert("no puede subir ams de 3 fotos");
+			}
+			else
+			{
+				for(var i=0; i<e.target.files.length; i++)
+				{
+					var storageRef = firebase.storage().ref('fotos/'+user.uid+'/'+file[i].name);
+					storageRef.put(file[i]);
+				}
+			}
+		
+	});*/

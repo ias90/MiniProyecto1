@@ -73,7 +73,9 @@
             <input type="text" id="adoptado" name="adoptado">
             <label class="label" for="adoptado">¿Adoptaste a tu mascota? ¿cuentanos donde?:</label>
           </div>
-            
+            <div class="mdl-card__actions">
+            <input type="file" value="upload" name="file" id="btnUpload" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"multiple>Subir Fotos</input>
+            </div>
           <input type="submit" id="submitBtn" value="Enviar">
         </div>
       </form>
@@ -82,7 +84,33 @@
 </div>
   <script src="js/formulario.js"></script>
 
+<!-- INGRESAR LAS FOTOS -->
+<script>
+  btnUpload.addEventListener('change',function(e) {
+      var user = firebase.auth().currentUser;
 
+      var file = e.target.files;
+    var cont = 0;
+    //var file = $("#file").val();
+
+      for(var i=0; i<e.target.files.length; i++){
+        cont++;
+      }
+        if(cont>3)
+        {
+          alert("no puede subir ams de 3 fotos");
+        }
+        else
+        {
+          for(var i=0; i<e.target.files.length; i++)
+          {
+            var storageRef = firebase.storage().ref('fotos/'+user.uid+'/'+file[i].name);
+            storageRef.put(file[i]);
+          }
+        }
+      
+  });
+</script>
 
 
 
