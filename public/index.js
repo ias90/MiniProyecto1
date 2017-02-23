@@ -15,6 +15,7 @@ firebase.auth().onAuthStateChanged(function(user) {
       dialogPolyfill.registerDialog(dialog);
     }
     dialog.close();
+    console.log("estas logueado");
 
 
   } else {
@@ -28,6 +29,7 @@ firebase.auth().onAuthStateChanged(function(user) {
       dialogPolyfill.registerDialog(dialog);
     }
     dialog.showModal();
+    console.log("no estahay nadie logueado");
 
   }
 });
@@ -90,12 +92,14 @@ $("#loginBtn").click(
 		var email = $("#loginEmail").val();
 		var password = $("#loginPassword").val();
 
+
 		//si es distinto de null ambos campos muestra que esta cargando y esconde el boton
 		if(email != "" && password != ""){
 			$("#loginProgress").hide();
 			$("#loginBtn").show();
 
 			firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error){
+				
 				console.log("User Login Successful");
 				$("#loginError").show().text(error.message);
 				
@@ -114,12 +118,14 @@ $("#signOutBtn").click(
 		firebase.auth().signOut().then(function() {
 		  // Sign-out successful.
 		  console.log("User Logout Successful");
+		  window.location.replace("index.html");
 
 		}, function(error) {
 		  // An error happened.
 
 		  alert(error.message);
 		});
+
 
 
 	});
