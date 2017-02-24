@@ -217,3 +217,8 @@ function() {
 
 				console.log("User signup Successful");
 	});
+
+$("#adminBtn").click(
+function() {
+		window.location.replace("index.html");
+	});

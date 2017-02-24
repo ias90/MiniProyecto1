@@ -1,12 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 	<head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 		<title>My Pet</title>
     <!-- font family - google fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-orange.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/dialog-polyfill.css" />
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="materialize/css/materialize.min.css">
+  <style>
+    input.ng-invalid.ng-dirty, textarea.ng-invalid.ng-dirty{border-bottom: 1px solid #D25349;}
+    input.ng-valid.ng-dirty, textarea.ng-valid.ng-dirty{border-bottom: 2px solid #019739;}
+  </style>
+  <script src="angular.min.js"></script>
+  <script src="angular-messages.min.js"></script>
+  <script src="materialize/js/jquery-latest.js"></script>
+  <script src="materialize/js/materialize.min.js"></script>
+  <script>
+    angular.module('messages', ['ngMessages']);
+  </script>
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <script src="dialog-polyfill.js"></script>
 
@@ -15,105 +30,90 @@
 
 
       <!-- Fijar foto de fondo  -->
-  <style>
-    body { 
-      background-image: url("images/Pets-2.jpg");
-      background-attachment: fixed;
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: 1000px;
-    }
-  </style>
+ 
 
 
 	</head>
-	<body>
-
-      <!-- LOGIN DIALOG -->
-    <dialog id="loginDialog" class="mdl-dialog">
-      <h4 class="mdl-dialog__title">Datos del Participante</h4>
-      <div class="mdl-dialog__content">
-        <p id="loginError"></p>
+	<body ng-app="messages">
 
 
- <!-- SIGN UP DIALOG 
-    <dialog id="signUpDialog" class="mdl-dialog">
-      <h4 class="mdl-dialog__title">Sign up</h4>
-      <div class="mdl-dialog__content">
-        <p id="signUpError"></p>-->
-
-        
-        <!-- barra para ingresar email y password -->
-          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input class="mdl-textfield__input" pattern="[A-Z,a-z]*" type="text" id="nombre">
-            <label class="mdl-textfield__label" for="nombre">Nombre:</label>
-            <span class="mdl-textfield__error">Solo se pueden agregar letras</span>
-          </div>
-          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input class="mdl-textfield__input"  type="text" id="edad">
-            <label class="mdl-textfield__label" for="edad">Edad:</label>
-            <span class="mdl-textfield__error">Solo se pueden agregar letras</span>
-          </div>
-          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input class="mdl-textfield__input" type="text" id="historia">
-            <label class="mdl-textfield__label" for="historia">Cuentanos sobre tu mascota:</label>
-            <span class="mdl-textfield__error">Solo se pueden agregar letras</span>
-          </div>
-          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input class="mdl-textfield__input" type="text" id="adoptado">
-            <label class="mdl-textfield__label" for="adoptado">¿Adoptaste a tu mascota? ¿cuentanos donde?:</label>
-            <span class="mdl-textfield__error">Solo se pueden agregar letras</span>
-          </div>
-          <div>
-            <input type="file" value="upload" name="file" id="btnUpload" class="mdl-button mdl-js-button"multiple></input>
-            </div>
-          </div>
-          <!-- FIN barra para ingresar email y password -->
-
-      </div>
-      <div class="mdl-dialog__actions">
-      <!-- BOTONES PARA INGRESAR Y CREAR CUENTA  -->
-        
-
-        <button id="formularioMascotaBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Sign up</button>
-
-        <div id="loginProgress" class="mdl-spinner mdl-js-spinner is-active"></div>
-    
-      </div>
-    </dialog>
-
-
-
-
-	<div class="login-cover">
-    <div class="page-loader mdl-spinner mdl-js-spinner is-active"></div>
-  </div>
-
-    <!-- MAIN PAGE CONTENT -->
 
     <div class="mdl-layout mdl-js-layout">
-      <header class="mdl-layout__header">
-        <div class="mdl-layout-icon"></div>
-        <div class="mdl-layout__header-row">
-          <span class="mdl-layout__title">My Pet
-            <span class="page-title-span"> | </span>
-            <span class="page-title-span"> Home </span>
-          </span>
-          <div class="mdl-layout-spacer"></div>
-          <nav class="mdl-navigation">
+        <header class="mdl-layout__header">
+          <div class="mdl-layout-icon"></div>
+          <div class="mdl-layout__header-row">
+            <span class="mdl-layout__title">My Pet
+              <span class="page-title-span"> | </span>
+              <span class="page-title-span"> Home </span>
+            </span>
+            <div class="mdl-layout-spacer"></div>
+            <nav class="mdl-navigation">
 
-          <button id="signOutBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect"><i class="material-icons mdl-js-ripple-effect">exit_to_app</i>
-            Sign Out
-          </button>
+            <button id="signOutBtn"  class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect"><i class="material-icons mdl-js-ripple-effect">exit_to_app</i>
+              Sign Out
+            </button>
 
-          </nav>
-        </div>
-      </header>
-      <div class="mdl-layout__drawer">
-      </div>
-    </div>
+            </nav>
+          </div>
+        </header>
+        
+        <div class="container">
+            <h3>Datos de su mascota</h3>
+          <form name="registro" novalidate>
+            <div class="row">
+              <section class="input-field col s12 m6">
+                <label for="nombre">Nombre:</label>
+                <input type="text" ng-model="data.nombre" id="nombre" name="nombre" required pattern="[ñáéíóúA-Za-z ]+">
+                <div ng-messages="registro.nombre.$error" ng-messages-include="errores.html" ng-hide="registro.nombre.$pristine"></div>
+              </section>
+              <section class="input-field col s12 m6">
+                <label for="edad">Edad (en años y meses):</label>
+                <input type="text" ng-model="data.edad" id="edad" name="edad" required>
+                <div ng-messages="registro.edad.$error" ng-messages-include="errores.html" ng-hide="registro.edad.$pristine"></div>
+              </section>
+            </div>
 
-    <!-- INGRESAR LAS FOTOS -->
+            <div class="row">
+              <section class="input-field col s12">
+                <label for="historia">Cuentanos sobre tu mascota:</label>
+                <textarea class="materialize-textarea" id="historia" ng-model="data.historia" name="historia" required pattern="[ñáéíóú,.\w ]+"></textarea>
+                <div ng-messages="registro.historia.$error" ng-messages-include="errores.html" ng-hide="registro.historia.$pristine"></div>
+              </section>
+            </div>
+
+            <div class="row">
+              <section class="input-field col s12">
+                <label for="adoptado">¿Tu mascota es adoptado? ¿cuentanos donda?:</label>
+                <textarea class="materialize-textarea" id="adoptado" ng-model="data.adoptado" name="adoptado" required pattern="[ñáéíóú,.\w ]+"></textarea>
+                <div ng-messages="registro.adoptado.$error" ng-messages-include="errores.html" ng-hide="registro.adoptado.$pristine"></div>
+              </section>
+            </div>
+
+            <label for="correo">Imagenes de su mascota </label>
+            <div class="row">
+              <section class="input-field col s12 m6">
+                <div>
+                <input type="file" value="upload" name="file" id="btnUpload" class="mdl-button mdl-js-button"multiple></input>
+                </div>
+              </section>
+            </div>
+
+
+
+            <button ng-disabled="registro.$invalid" class="btn waves-effect waves-light" id="formularioMascotaBtn" >Confirmar
+              <i class="mdi-content-send right"></i>
+            </button>
+          </form>
+  </div>
+</div>
+
+
+
+
+
+  <script src="js/formulario.js"></script>
+
+<!-- INGRESAR LAS FOTOS -->
 <script>
   var cedula=localStorage.getItem("cedula");
   btnUpload.addEventListener('change',function(e) {
@@ -142,7 +142,7 @@
 </script>
 
 
-  <script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
   <script>
     // Initialize Firebase
     var config = {
