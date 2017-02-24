@@ -113,52 +113,7 @@
       <div class="mdl-layout__drawer">
       </div>
     </div>
-<!--
-<script>
-    const loginEmail = document.getElementById('loginEmail');
-    const loginPassword = document.getElementById('loginPassword');
-    const signUpBtn = document.getElementById('signUpBtn');
-    const nombre = document.getElementById('nombre');
-    const apellido = document.getElementById('apellido');
-    const cedula = document.getElementById('cedula');
-    const telefono = document.getElementById('telefono');
-   
-    
-    signUpBtn.addEventListener('click', e => {
-      const email = loginEmail.value;
-      const password = loginPassword.value;
-      const auth = firebase.auth();
-      const nombre = nombre.value;
-      const apellido = apellido.value;
-      const cedula = cedula.value;
-      const telefono = telefono.value;
 
-      const promise =  firebase.auth().createUserWithEmailAndPassword(email, password);
-      promise.catch(e => console.log(e.message));
-       //realtima authentication listener
-        firebase.auth().onAuthStateChanged(firebaseUser => {
-        if(firebaseUser){
-          console.log(firebaseUser);
-         
-        }else{
-          console.log('No has iniciado sesion');
-     
-        }
-   });
-       //PRUEBA: meto los datos en la base de datos
-      var firebaseUser = firebase.auth().currentUser;
-        firebase.database().ref("user/" + firebaseUser.uid).set({
-          Nombre: nombre,
-          Apellido: apellido,
-          Telefono: telefono,
-          Cedula: cedula
-        })
-    });
-
-
-</script>
-
--->
 
   <script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
   <script>
