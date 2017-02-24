@@ -161,28 +161,59 @@ $("#submitBtn").click(
 				console.log("User signup Successful");
 	});
 
-/*
-$("#btnUpload").addEventListener('change',function(e) {
-    var user = firebase.auth().currentUser;
+$("#formularioUsuarioBtn").click(
+  function() {
+    //quitar
+		var nombre = $("#nombre").val();
+      	var apellido = $("#apellido").val();
+      	var cedula = $("#cedula").val();
+     	var telefono = $("#telefono").val();
+     	var email = $("#email").val();
+     	localStorage.setItem("cedula",cedula);
 
-    var file = e.target.files;
-	var cont = 0;
-	//var file = $("#file").val();
+		//si es distinto de null ambos campos muestra que esta cargando y esconde el boton
+				firebase.database().ref('usuario/'+cedula).set({
+					nombre: nombre,
+			        apellido: apellido,
+			        cedula: cedula,
+		            telefono: telefono,
+		            email: email,
+				}).then(function(){
+					console.log("participante agregado");
+					//window.location = "/registroMascota?id="+cedula;
+					window.location.replace("registroMascota.html");
 
-		for(var i=0; i<e.target.files.length; i++){
-			cont++;
-		}
-			if(cont>3)
-			{
-				alert("no puede subir ams de 3 fotos");
-			}
-			else
-			{
-				for(var i=0; i<e.target.files.length; i++)
-				{
-					var storageRef = firebase.storage().ref('fotos/'+user.uid+'/'+file[i].name);
-					storageRef.put(file[i]);
-				}
-			}
-		
-	});*/
+				}, function(error){
+					alert(error.code);
+				});
+
+				console.log("User signup Successful");
+	});
+
+$("#formularioMascotaBtn").click(
+function() {
+    //quitar
+		var nombre = $("#nombre").val();
+      	var edad = $("#edad").val();
+      	var historia = $("#historia").val();
+     	var adoptado = $("#adoptado").val();
+     	var cedula=localStorage.getItem("cedula");
+
+		//si es distinto de null ambos campos muestra que esta cargando y esconde el boton
+
+				//var user = firebase.auth().currentUser;
+				firebase.database().ref('usuario/'+cedula+'/mascota/').set({
+					nombre: nombre,
+			        edad: edad,
+			        historia: historia,
+		            adoptado: adoptado,
+				}).then(function(){
+					console.log("mascota agregada");
+					window.location.replace("indexP.html");
+
+				}, function(error){
+					alert(error.code);
+				});
+
+				console.log("User signup Successful");
+	});
