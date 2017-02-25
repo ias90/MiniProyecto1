@@ -121,7 +121,7 @@ $("#signOutBtn").click(
 		firebase.auth().signOut().then(function() {
 		  // Sign-out successful.
 		  console.log("User Logout Successful");
-		  window.location.replace("index.html");
+		  window.location.replace("loginAdmin.html");
 
 		}, function(error) {
 		  // An error happened.
@@ -169,15 +169,35 @@ $("#formularioUsuarioBtn").click(
       	var cedula = $("#cedula").val();
      	var telefono = $("#telefono").val();
      	var email = $("#email").val();
+     	//guardo el valor de la cedula para que sea leido en otras vistas
      	localStorage.setItem("cedula",cedula);
 
+/*
+     	var ref = firebase.database().ref('usuario/'+cedula).once('value').then(function(snapshot){
+     		var verCed = snapshot.val();
+     		if(verCed == null)
+     		{
+     			window.location.replace("indexP.html");
+     		}
+     		else
+     		{
+     			window.location.replace("gracias.html");
+     		}
+     	});*/
+
+
+     
+
+
+
 		//si es distinto de null ambos campos muestra que esta cargando y esconde el boton
-				firebase.database().ref('usuario/'+cedula).set({
-					nombre: nombre,
-			        apellido: apellido,
-			        cedula: cedula,
-		            telefono: telefono,
-		            email: email,
+				firebase.database().ref('Entrada/'+cedula).set({
+					Nombre: nombre,
+			        Apellido: apellido,
+			        Cedula: cedula,
+		            Telefono: telefono,
+		            Email: email,
+		            Estatus: 'Pendiente'
 				}).then(function(){
 					console.log("participante agregado");
 					//window.location = "/registroMascota?id="+cedula;
@@ -193,7 +213,7 @@ $("#formularioUsuarioBtn").click(
 $("#formularioMascotaBtn").click(
 function() {
     //quitar
-		var nombre = $("#nombre").val();
+		var nombreM = $("#nombreM").val();
       	var edad = $("#edad").val();
       	var historia = $("#historia").val();
      	var adoptado = $("#adoptado").val();
@@ -202,14 +222,14 @@ function() {
 		//si es distinto de null ambos campos muestra que esta cargando y esconde el boton
 
 				//var user = firebase.auth().currentUser;
-				firebase.database().ref('usuario/'+cedula+'/mascota/').set({
-					nombre: nombre,
-			        edad: edad,
-			        historia: historia,
-		            adoptado: adoptado,
+				firebase.database().ref('Entrada/'+cedula+'/Mascota').set({
+					NombreM: nombreM,
+			        Edad: edad,
+			        Historia: historia,
+		            Adoptado: adoptado
 				}).then(function(){
 					console.log("mascota agregada");
-					window.location.replace("indexP.html");
+					window.location.replace("gracias.html");
 
 				}, function(error){
 					alert(error.code);
@@ -220,5 +240,60 @@ function() {
 
 $("#adminBtn").click(
 function() {
+		window.location.replace("loginAdmin.html");
+	});
+
+$("#homeBtn").click(
+function() {
 		window.location.replace("index.html");
 	});
+
+$("#updateBtn").click(
+function() {
+    //quitar
+		var nombre = $("#nombre").val();
+      	var edad = $("#edad").val();
+      	var historia = $("#historia").val();
+     	var adoptado = $("#adoptado").val();
+     	var nombreM = $("#nombreM").val();
+      	var apellido = $("#apellido").val();
+      	var cedula = $("#cedula").val();
+     	var telefono = $("#telefono").val();
+     	var email = $("#email").val();
+     	//guardo el valor de la cedula para que sea leido en otras vistas
+     	localStorage.setItem("cedula",cedula);
+
+		//si es distinto de null ambos campos muestra que esta cargando y esconde el boton
+
+				//var user = firebase.auth().currentUser;
+				firebase.database().ref('Entrada/'+cedula).set({
+					Nombre: nombre,
+			        Apellido: apellido,
+			        Cedula: cedula,
+		            Telefono: telefono,
+		            Email: email,
+		            Estatus: 'Pendiente',
+		            Mascota: {
+		            	NombreM: nombreM,
+			        	Edad: edad,
+				        Historia: historia,
+			            Adoptado: adoptado
+		            }
+				}).then(function(){
+					console.log("participante agregado");
+					//window.location = "/registroMascota?id="+cedula;
+					window.location.replace("graciasUpdate.html");
+
+				}, function(error){
+					alert(error.code);
+				});
+
+				console.log("User signup Successful");
+	});
+
+
+
+
+
+
+

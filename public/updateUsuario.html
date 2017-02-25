@@ -56,7 +56,11 @@
             
           </div>
         </header>
-        
+
+
+     
+
+
 <div class="hola">
 <div class="container">
     <h3>Validaremos su cedula primero</h3>
@@ -84,37 +88,61 @@
 
   validarCedula.addEventListener('click', e => {
     var cedula = Acedula.value;
-    localStorage.setItem("cedula",cedula);
-
+    //localStorage.setItem("cedula",cedula);
+    //console.log(cedula);
     var ref = firebase.database().ref('Entrada/'+cedula).once('value').then(function(snapshot){
       var verCed = snapshot.val();
-      if(verCed == null)
+      //console.log(verCed);
+      if(verCed != null)
         {
-            $(".hola").hide();
-            alert("Su cedula ha sido validada, por favor continue llenando el formulario");
-
+            
+            var ref = firebase.database().ref().child('Entrada/'+cedula);
+              ref.once('value').then(function(snapshot){
+                    const estado=snapshot.child("Estatus").val();
+                    console.log(estado);
+                    if(estado === 'Actualizar')
+                    {
+                      console.log("hola2");
+                      $(".hola").hide();
+                      alert("Su cedula ha sido validada, por favor actualice si información");
+                      $(".chao").show();
+                    }
+                    else{
+                      console.log("hola3");
+                      alert("Usted no puede actualizar sus datos, sera redirigido a la pagina de inicio.");
+                      window.location.replace("index.html");
+                    }  
+                });             
         }
         else
         {
-          window.location.replace("gracias.html");
+          console.log("hola4");
+          alert("Usted no esta inscrito, si quiere participar le agradecemos inscribirse.");
+          window.location.replace("index.html");
         }
-    });
   });
+});
 </script>
 
 
 
-<div class="container">
+<div class="chao">
+<script>
+  $(".chao").hide();
+</script>
+  <div class="container">
     <h3>Ingrese sus datos</h3>
   <form name="registro" novalidate>
     <div class="row">
       <section class="input-field col s12 m6">
         <label for="nombre">Nombre:</label>
+        <br>
         <input type="text" ng-model="data.nombre" id="nombre" name="nombre" required pattern="[ñáéíóúA-Za-z ]+">
         <div ng-messages="registro.nombre.$error" ng-messages-include="errores.html" ng-hide="registro.nombre.$pristine"></div>
       </section>
       <section class="input-field col s12 m6">
         <label for="apellido">Apellido:</label>
+        <br>
         <input type="text" ng-model="data.apellido" id="apellido" name="apellido" required pattern="[ñáéíóúA-Za-z ]+">
         <div ng-messages="registro.apellido.$error" ng-messages-include="errores.html" ng-hide="registro.apellido.$pristine"></div>
       </section>
@@ -123,11 +151,13 @@
     <div class="row">
       <section class="input-field col s12 m6">
         <label for="cedula">Cedula:</label>
+        <br>
         <input type="text" ng-model="data.cedula" id="cedula" name="cedula" required pattern="[0-9]+">
         <div ng-messages="registro.cedula.$error" ng-messages-include="errores.html" ng-hide="registro.cedula.$pristine"></div>
       </section>
       <section class="input-field col s12 m6">
         <label for="telefono">Telefono:</label>
+        <br>
         <input type="text" ng-model="data.telefono" id="telefono" name="telefono" required pattern="[0-9]+">
         <div ng-messages="registro.telefono.$error" ng-messages-include="errores.html" ng-hide="registro.apellido.$pristine"></div>
       </section>
@@ -138,22 +168,59 @@
     <div class="row">
       <section class="input-field col s12 m9">
         <label for="correo">Email: </label>
+        <br>
         <input type="email" id="email" ng-model="data.correo" name="correo" required>
         <div ng-messages="registro.correo.$error" ng-messages-include="errores.html" ng-hide="registro.correo.$pristine">
           <div ng-message="email" class="err red darken-2 center-align white-text">Debe ingresar un correo válido</div>
         </div>
       </section>
-
     </div>
+<!-- DATOS MASCOTA -->
 
-    <button ng-disabled="registro.$invalid" class="btn waves-effect waves-light" id="formularioUsuarioBtn" >Confirmar
+    <h3>Mascota</h3>
+    <div class="row">
+              <section class="input-field col s12 m6">
+                <label for="nombreM">Nombre:</label>
+                <br>
+                <input type="text" ng-model="data.nombreM" id="nombreM" name="nombreM" required pattern="[ñáéíóúA-Za-z ]+">
+                <div ng-messages="registro.nombreM.$error" ng-messages-include="errores.html" ng-hide="registro.nombreM.$pristine"></div>
+              </section>
+              <section class="input-field col s12 m6">
+                <label for="edad">Edad (en años y meses):</label>
+                <br>
+                <input type="text" ng-model="data.edad" id="edad" name="edad" required>
+                <div ng-messages="registro.edad.$error" ng-messages-include="errores.html" ng-hide="registro.edad.$pristine"></div>
+              </section>
+            </div>
+
+            <div class="row">
+              <section class="input-field col s12">
+                <label for="historia">Cuentanos sobre tu mascota:</label>
+                <br>
+                <textarea class="materialize-textarea" id="historia" ng-model="data.historia" name="historia" required pattern="[ñáéíóú,.\w ]+"></textarea>
+                <div ng-messages="registro.historia.$error" ng-messages-include="errores.html" ng-hide="registro.historia.$pristine"></div>
+              </section>
+            </div>
+
+            <div class="row">
+              <section class="input-field col s12">
+                <label for="adoptado">¿Tu mascota es adoptado? ¿cuentanos donde?:</label>
+                <br>
+                <textarea class="materialize-textarea" id="adoptado" ng-model="data.adoptado" name="adoptado" required pattern="[ñáéíóú,.\w ]+"></textarea>
+                <div ng-messages="registro.adoptado.$error" ng-messages-include="errores.html" ng-hide="registro.adoptado.$pristine"></div>
+              </section>
+            </div>
+
+    <button  class="btn waves-effect waves-light" id="updateBtn" >Confirmar
       <i class="mdi-content-send right"></i>
     </button>
   </form>
   </div>
+</div>
 
 
 </div>
+
 
 
 
@@ -170,6 +237,57 @@
       messagingSenderId: "1004216342011"
     };
     firebase.initializeApp(config);
+  </script>
+
+
+  <!--LLENO EL FORMULARIO CON LA INFORMACION DE LA PERSONA QUE VA A ACTUALIZAR -->
+  <script>
+    var cedul=localStorage.getItem("cedula");
+
+    var ref = firebase.database().ref('Entrada/'+cedul);
+      var tabla= $("#tabla").val();
+      ref.once('value').then(function(snapshot){
+            var nombre=snapshot.child("Nombre").val();
+            var apellido=snapshot.child("Apellido").val();
+            var telefono=snapshot.child("Telefono").val();
+            var cedula=snapshot.child("Cedula").val();
+            var email=snapshot.child("Email").val();
+            var nombreM=snapshot.child("Mascota").child("nombreM").val();
+            var edad=snapshot.child("Mascota").child("edad").val();
+            var adoptado=snapshot.child("Mascota").child("adoptado").val();
+            var historia=snapshot.child("Mascota").child("historia").val();
+
+            document.getElementById("nombre").value = nombre;
+            document.getElementById("apellido").value = apellido;
+            document.getElementById("telefono").value = telefono;
+            document.getElementById("cedula").value = cedula;
+            document.getElementById("email").value = email;
+            document.getElementById("nombreM").value = nombreM;
+            document.getElementById("edad").value = edad;
+            document.getElementById("adoptado").value = adoptado;
+            document.getElementById("historia").value = historia;
+            //var foto1=hijo.child("Mascota").child("Fotos").child("Foto1").val();
+            //var foto2=hijo.child("Mascota").child("Fotos").child("Foto1").val();
+            //var foto3=hijo.child("Mascota").child("Fotos").child("Foto1").val();
+            
+
+            //var refFoto1=firebase.storage().ref('fotos_concurso/' + foto1).getDownloadURL();
+
+          var nuevaFila = $('<tr><td style="text-align:center;"><p>' +nombre+
+            '</p></td><td style="text-align:center;"><p>' +apellido+
+            '</p></td><td style="text-align:center;"><p>' +telefono+
+            '</p></td><td style="text-align:center;"><p>' +cedula+
+            '</p></td><td style="text-align:center;"><p>' +email+
+            '</p></td><td style="text-align:center;"><p>' +nombreM+
+            '</p></td><td style="text-align:center;"><p>' +edad+
+            '</p></td><td style="text-align:center;"><p>' +adoptado+
+            '</p></td><td style="text-align:center;"><p>' +historia+
+            '</p></td><td style="text-align:center;"><p>');
+          $("#tabla").append(nuevaFila);
+      });
+
+
+
   </script>
 
   <script src="https://code.jquery.com/jquery-3.1.0.js"></script>

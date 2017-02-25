@@ -47,13 +47,11 @@
               <span class="page-title-span"> Home </span>
             </span>
             <div class="mdl-layout-spacer"></div>
-            <nav class="mdl-navigation">
+            
 
-            <button id="signOutBtn"  class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect"><i class="material-icons mdl-js-ripple-effect">exit_to_app</i>
-              Sign Out
-            </button>
+            
 
-            </nav>
+            
           </div>
         </header>
         
@@ -62,9 +60,9 @@
           <form name="registro" novalidate>
             <div class="row">
               <section class="input-field col s12 m6">
-                <label for="nombre">Nombre:</label>
-                <input type="text" ng-model="data.nombre" id="nombre" name="nombre" required pattern="[ñáéíóúA-Za-z ]+">
-                <div ng-messages="registro.nombre.$error" ng-messages-include="errores.html" ng-hide="registro.nombre.$pristine"></div>
+                <label for="nombreM">Nombre:</label>
+                <input type="text" ng-model="data.nombreM" id="nombreM" name="nombreM" required pattern="[ñáéíóúA-Za-z ]+">
+                <div ng-messages="registro.nombreM.$error" ng-messages-include="errores.html" ng-hide="registro.nombreM.$pristine"></div>
               </section>
               <section class="input-field col s12 m6">
                 <label for="edad">Edad (en años y meses):</label>
@@ -83,22 +81,26 @@
 
             <div class="row">
               <section class="input-field col s12">
-                <label for="adoptado">¿Tu mascota es adoptado? ¿cuentanos donda?:</label>
+                <label for="adoptado">¿Tu mascota es adoptado? ¿cuentanos donde?:</label>
                 <textarea class="materialize-textarea" id="adoptado" ng-model="data.adoptado" name="adoptado" required pattern="[ñáéíóú,.\w ]+"></textarea>
                 <div ng-messages="registro.adoptado.$error" ng-messages-include="errores.html" ng-hide="registro.adoptado.$pristine"></div>
               </section>
             </div>
 
-            <label for="correo">Imagenes de su mascota </label>
-            <div class="row">
-              <section class="input-field col s12 m6">
-                <div>
-                <input type="file" value="upload" name="file" id="btnUpload" class="mdl-button mdl-js-button"multiple></input>
-                </div>
-              </section>
+
+          <div class="row">
+            <div class="file-field input-field">
+              <div class="btn">
+                <span>Fotos</span>
+                <input type="file" value="upload" id="btnUpload" multiple/>
+              </div>
+              <div class="file-path-wrapper">
+              </div>
             </div>
+          </div>
+          
 
-
+          <br></br>
 
             <button ng-disabled="registro.$invalid" class="btn waves-effect waves-light" id="formularioMascotaBtn" >Confirmar
               <i class="mdi-content-send right"></i>
@@ -106,10 +108,6 @@
           </form>
   </div>
 </div>
-
-
-
-
 
   <script src="js/formulario.js"></script>
 

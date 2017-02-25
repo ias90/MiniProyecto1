@@ -18,20 +18,20 @@
       <!-- Fijar foto de fondo  -->
   <style>
     body { 
-      background-image: url("images/Pets-2.jpg");
+      background-image: url("images/Pets.jpg");
       background-attachment: local;
       background-repeat: no-repeat;
       background-position: center;
-      background-size: 1000px;
+      background-size: 1500px;
     }
 
-    .bgimg-1 {
+    .container {
     background-attachment: local;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     position: absolute;
-    top: 1%;
+    top: 30%;
     left: 50%;
     }
 
@@ -41,7 +41,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     position: absolute;
-    top: 60%;
+    top: 10%;
     left: 50%;
     }
 
@@ -55,6 +55,8 @@
     left: 61%;
 }
 
+
+
     .mdl-button-3{
     
     top: 00%;
@@ -62,12 +64,12 @@
 }
 
 /* First image (Logo. Full height) */
-    .bgimg-1 {
+    .container {
     min-height: 100%;
     }
 
     @media only screen and (max-device-width: 1024px) {
-    .bgimg-1{
+    .container{
         background-attachment: scroll;
     }
 }
@@ -118,35 +120,33 @@
         </div>
       </header>
 
+  <div class="container">
+    <div class="row">
+      <!-- LETRERO DE BIENVENIDO -->
+        <section>
+          <div class="bgimg-1 w3-display-container w3-opacity-min" id="home">
+            <div class="w3-display-middle" style="white-space:nowrap;">
 
-    <!-- LETRERO DE BIENVENIDO -->
-      <section>
-        <div class="bgimg-1 w3-display-container w3-opacity-min" id="home">
-          <div class="w3-display-middle" style="white-space:nowrap;">
-
-            <span class="w3-center w3-padding-xlarge w3-black w3-xlarge w3-wide w3-animate-opacity"> <span class="w3-hide-small">BIENVENIDO AL CONCURSO MI MASCOTA</span></span>
+              <span class="w3-center w3-padding-xlarge w3-black w3-xlarge w3-wide w3-animate-opacity"> <span class="w3-hide-small">GRACIAS POR PACTUALIZAR SUS DATOS</span></span>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+        
 
-      <!-- LETRERO DE deseas participiar -->
+        <!-- LETRERO DE deseas participiar -->
 
-      <section>
-        <div class="bgimg-2 w3-display-container w3-opacity-min" id="home">
-          <div class="w3-display-middle" style="white-space:nowrap;">
+        <section>
+          <div class="bgimg-2 w3-display-container w3-opacity-min" id="home">
+            <div class="w3-display-middle" style="white-space:nowrap;">
 
-            <span class="w3-center w3-padding-xlarge w3-black w3-xlarge w3-wide w3-animate-opacity"> <span class="w3-hide-small">¿Deseas participar?</span></span>
+              <span class="w3-center w3-padding-xlarge w3-black w3-xlarge w3-wide w3-animate-opacity"> <span class="w3-hide-small">ESTA ATENTO A TU CORREO</span></span>
+            </div>
           </div>
-        </div>
-      </section>
-
-      <div class="mdl-layout mdl-js-layout">
-        <main class="mdl-layout__content">
-              <a href="inscripcionUsuario.html" class="mdl-button-2 mdl-button--fab mdl-button--colored"><i class="material-icons">mode_edit</i></a>
-        </main>
-      </div>
-
+        </section>
     </div>
+  </div>
+</div>
+    
 
 
 

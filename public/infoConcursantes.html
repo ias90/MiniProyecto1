@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+	<head>
+  <meta charset="utf-8">
+		<title>My Pet</title>
+    <!-- font family - google fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-orange.min.css"/>
+    <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+    <link rel="stylesheet" type="text/css" href="css/dialog-polyfill.css" />
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script src="dialog-polyfill.js"></script>
+
+    <!-- main stylesheet -->
+    <link rel="stylesheet" href="css/style.css" />  
+
+      <!-- Fijar foto de fondo  -->
+    <style>
+      body { 
+        background-image: url("images/Pets-2.jpg");
+        background-attachment: local;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 1000px;
+      }
+
+      .bgimg-1 {
+      background-attachment: local;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      position: absolute;
+      top: 1%;
+      left: 50%;
+      }
+
+      .bgimg-2 {
+      background-attachment: local;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      position: absolute;
+      top: 60%;
+      left: 50%;
+      }
+
+      .mdl-button-2 {
+      background-attachment: local;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      position: absolute;
+      top: 50%;
+      left: 61%;
+      }
+
+          .mdl-button-3{
+          
+          top: 00%;
+          left: 0%;
+      }
+
+      /* First image (Logo. Full height) */
+          .bgimg-1 {
+          min-height: 100%;
+          }
+
+          @media only screen and (max-device-width: 1024px) {
+          .bgimg-1{
+              background-attachment: scroll;
+          }
+      }
+    </style>
+
+
+	</head>
+	<body>
+        
+<!-- MAIN PAGE CONTENT -->
+
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout-icon"></div>
+        <div class="mdl-layout__header-row">
+
+        <button id="demo-menu-lower-left"
+                class="mdl-button mdl-js-button mdl-button--icon">
+          <i class="material-icons">more_vert</i>
+        </button>
+
+        <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
+            for="demo-menu-lower-left">
+          <li class="mdl-menu__item">Some Action</li>
+          <li class="mdl-menu__item mdl-menu__item--full-bleed-divider">Another Action</li>
+          <li disabled class="mdl-menu__item">Disabled Action</li>
+          <li class="mdl-menu__item">Yet Another Action</li>
+        </ul>
+
+
+          <span class="mdl-layout__title">My Pet
+            <span class="page-title-span"> | </span>
+            <span class="page-title-span"> Home </span>
+          </span>
+
+          <div class="mdl-layout-spacer"></div>
+          <nav class="mdl-navigation">
+            <button id="signOutBtn"  class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect"><i class="material-icons mdl-js-ripple-effect">exit_to_app</i>
+            Log Out
+            </button>
+          </nav>
+        </div>
+      </header>
+
+      
+
+<main class="mdl-layout__content mdl-color--indigo-100">
+        <div class="mdl-grid demo-content">
+        <table id="tabla" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" align="center">
+          <thead>
+          <tr>
+            <th style="text-align:center;">Nombre</th>
+            <th style="text-align:center;">Apellido</th>
+            <th style="text-align:center;">Numero de Cedula</th>
+            <th style="text-align:center;">Nombre de la Mascota</th>
+            <th style="text-align:center;">Estado</th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+          </thead>
+        </table>
+      </main>
+
+
+
+    </div>
+
+    
+     
+  </body>
+
+
+
+  <script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyBKoIyHt8cIHy2C1ir7gxLSOoB4Sz-IFdk",
+      authDomain: "miniproyecto1.firebaseapp.com",
+      databaseURL: "https://miniproyecto1.firebaseio.com",
+      storageBucket: "miniproyecto1.appspot.com",
+      messagingSenderId: "1004216342011"
+    };
+    firebase.initializeApp(config);
+  </script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+//concurso-mi-mascota
+      var ref = firebase.database().ref().child('Entrada');
+      var tabla= $("#tabla").val();
+      ref.once('value', snap=>{
+        snap.forEach(hijo=>{
+            var estado=hijo.child("Estatus").val();
+            var nombre=hijo.child("Nombre").val();
+            var apellido=hijo.child("Apellido").val();
+            var telefono=hijo.child("Telefono").val();
+            var cedula=hijo.child("Cedula").val();
+            var email=hijo.child("Email").val();
+            var nombreM=hijo.child("Mascota").child("NombreM").val();
+            var edad=hijo.child("Mascota").child("Edad").val();
+            var adoptado=hijo.child("Mascota").child("Adoptado").val();
+            var historia=hijo.child("Mascota").child("Historia").val();
+
+
+            //var foto1=hijo.child("Mascota").child("Fotos").child("Foto1").val();
+            //var foto2=hijo.child("Mascota").child("Fotos").child("Foto1").val();
+            //var foto3=hijo.child("Mascota").child("Fotos").child("Foto1").val();
+            
+
+            //var refFoto1=firebase.storage().ref('fotos_concurso/' + foto1).getDownloadURL();
+
+          var nuevaFila = $('<tr><td style="text-align:center;"><p>' +nombre+
+            '</p></td><td style="text-align:center;"><p>' +apellido+
+            '</p></td><td style="text-align:center;"><p>' +cedula+
+            '</p></td><td style="text-align:center;"><p>' +nombreM+
+            '</p></td><td style="text-align:center;"><p>' +estado+
+            '</p></td><td style="text-align:center;"><p>' + '<a href="">Show</a>' +
+            '</p></td><td style="text-align:center;"><p>' + '<a href="">Edit</a>' +
+            '</p></td><td style="text-align:center;"><p>' + '<a href="">Delete</a>' +
+            '</p></td><td style="text-align:center;"><p>');
+          $("#tabla").append(nuevaFila);
+        });
+      });
+    </script>
+
+
+
+  <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+  <script src="index.js"></script>
+
+</body>
+</html>
