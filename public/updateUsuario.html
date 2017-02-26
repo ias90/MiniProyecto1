@@ -74,7 +74,7 @@
       </section>
     </div>
 
-    <button  class="btn waves-effect waves-light" id="validarCedula" >Validar
+    <button  class="btn waves-effect waves-light" id="validarCedula" >Actualizar
       <i class="mdi-content-send right"></i>
     </button>
   </form>
@@ -93,6 +93,7 @@
     //console.log(cedula);
     var ref = firebase.database().ref('Entrada/'+cedula).once('value').then(function(snapshot){
       var verCed = snapshot.val();
+      //console.log(cedula);
       //console.log(verCed);
       if(verCed != null)
         {
@@ -100,16 +101,45 @@
             var ref = firebase.database().ref().child('Entrada/'+cedula);
               ref.once('value').then(function(snapshot){
                     const estado=snapshot.child("Estatus").val();
+                    const motivo=snapshot.child("Motivo").val();
                     console.log(estado);
                     if(estado === 'Actualizar')
                     {
-                      console.log("hola2");
+                      
                       $(".hola").hide();
-                      alert("Su cedula ha sido validada, por favor actualice si información");
+                      alert("Por favor cambie lo siguiente: "+motivo);
                       $(".chao").show();
+                      
+
+                      var ref = firebase.database().ref('Entrada/'+cedula);
+                        ref.once('value').then(function(snapshot){
+                              var nombre=snapshot.child("Nombre").val();
+                              var apellido=snapshot.child("Apellido").val();
+                              var telefono=snapshot.child("Telefono").val();
+                              var cedula=snapshot.child("Cedula").val();
+                              var email=snapshot.child("Email").val();
+                              var nombreM=snapshot.child("Mascota").child("NombreM").val();
+                              var edad=snapshot.child("Mascota").child("Edad").val();
+                              var adoptado=snapshot.child("Mascota").child("Adoptado").val();
+                              var historia=snapshot.child("Mascota").child("Historia").val();
+
+                              document.getElementById("nombre").value = nombre;
+                              document.getElementById("apellido").value = apellido;
+                              document.getElementById("telefono").value = telefono;
+                              document.getElementById("cedula").value = cedula;
+                              document.getElementById("email").value = email;
+                              document.getElementById("nombreM").value = nombreM;
+                              document.getElementById("edad").value = edad;
+                              document.getElementById("adoptado").value = adoptado;
+                              document.getElementById("historia").value = historia;
+                        });
+
+
+
+
                     }
                     else{
-                      console.log("hola3");
+                      
                       alert("Usted no puede actualizar sus datos, sera redirigido a la pagina de inicio.");
                       window.location.replace("index.html");
                     }  
@@ -243,44 +273,7 @@
 
   <!--LLENO EL FORMULARIO CON LA INFORMACION DE LA PERSONA QUE VA A ACTUALIZAR -->
   <script>
-    var cedul=localStorage.getItem("cedula");
-
-    var ref = firebase.database().ref('Entrada/'+cedul);
-      var tabla= $("#tabla").val();
-      ref.once('value').then(function(snapshot){
-            var nombre=snapshot.child("Nombre").val();
-            var apellido=snapshot.child("Apellido").val();
-            var telefono=snapshot.child("Telefono").val();
-            var cedula=snapshot.child("Cedula").val();
-            var email=snapshot.child("Email").val();
-            var nombreM=snapshot.child("Mascota").child("nombreM").val();
-            var edad=snapshot.child("Mascota").child("edad").val();
-            var adoptado=snapshot.child("Mascota").child("adoptado").val();
-            var historia=snapshot.child("Mascota").child("historia").val();
-
-            document.getElementById("nombre").value = nombre;
-            document.getElementById("apellido").value = apellido;
-            document.getElementById("telefono").value = telefono;
-            document.getElementById("cedula").value = cedula;
-            document.getElementById("email").value = email;
-            document.getElementById("nombreM").value = nombreM;
-            document.getElementById("edad").value = edad;
-            document.getElementById("adoptado").value = adoptado;
-            document.getElementById("historia").value = historia;
-     
-
-          var nuevaFila = $('<tr><td style="text-align:center;"><p>' +nombre+
-            '</p></td><td style="text-align:center;"><p>' +apellido+
-            '</p></td><td style="text-align:center;"><p>' +telefono+
-            '</p></td><td style="text-align:center;"><p>' +cedula+
-            '</p></td><td style="text-align:center;"><p>' +email+
-            '</p></td><td style="text-align:center;"><p>' +nombreM+
-            '</p></td><td style="text-align:center;"><p>' +edad+
-            '</p></td><td style="text-align:center;"><p>' +adoptado+
-            '</p></td><td style="text-align:center;"><p>' +historia+
-            '</p></td><td style="text-align:center;"><p>');
-          $("#tabla").append(nuevaFila);
-      });
+    
 
 
 

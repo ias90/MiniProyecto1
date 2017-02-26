@@ -204,6 +204,9 @@
       };
       function actualizar(cedula){
         firebase.database().ref('Entrada/'+cedula+'/Estatus').set("Actualizar");
+        var motivo = prompt("Por favor diga que debe actualizar el participante", "Motivo");
+        firebase.database().ref('Entrada/'+cedula+'/Motivo').set(motivo);
+        window.location.reload();
       };
       function negar(cedula){
         firebase.database().ref('Entrada/'+cedula+'/Estatus').set("Negada");

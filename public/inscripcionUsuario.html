@@ -83,29 +83,43 @@
 //validar cedula
   var validarCedula = document.getElementById('validarCedula');
   var AAcedula = document.getElementById('Acedula');
-
+  
   validarCedula.addEventListener('click', e => {
     var cedula = Acedula.value;
     localStorage.setItem("cedula",cedula);
 
     var ref = firebase.database().ref('Entrada/'+cedula).once('value').then(function(snapshot){
       var verCed = snapshot.val();
-      if(verCed == null)
-        {
-            $(".hola").hide();
-            alert("Su cedula ha sido validada, por favor continue llenando el formulario");
+        var ref = firebase.database().ref('Entrada/'+cedula+'/Estatus').once('value').then(function(snapshot){
+          var estado = snapshot.val();
+          console.log(estado);
+          if(verCed == null)
+            {
+                $(".hola").hide();
+                alert("Su cedula ha sido validada, por favor continue llenando el formulario");
+                $(".esconder").show();
 
-        }
-        else
-        {
-          window.location.replace("gracias.html");
-        }
+            }
+            else if(estado === 'Actualizar')
+            {
+              alert("Usted debe actualizar sus datos.");
+              window.location.replace("updateUsuario.html");
+            }
+            else 
+            {
+              alert("Ya usted ha participado. Redirigiendo a la pagina de inicio");
+              window.location.replace("index.html");
+            }
     });
+      });
   });
 </script>
 
 
-
+<div class="esconder">
+<script>
+$(".esconder").hide();
+</script>
 <div class="container">
     <h3>Ingrese sus datos</h3>
   <form name="registro" novalidate>
@@ -153,7 +167,7 @@
     </button>
   </form>
   </div>
-
+</div>
 
 </div>
 
