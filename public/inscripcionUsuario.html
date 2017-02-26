@@ -87,7 +87,7 @@
   validarCedula.addEventListener('click', e => {
     var cedula = Acedula.value;
     localStorage.setItem("cedula",cedula);
-
+console.log(cedula);
     var ref = firebase.database().ref('Entrada/'+cedula).once('value').then(function(snapshot){
       var verCed = snapshot.val();
         var ref = firebase.database().ref('Entrada/'+cedula+'/Estatus').once('value').then(function(snapshot){
@@ -98,17 +98,20 @@
                 $(".hola").hide();
                 alert("Su cedula ha sido validada, por favor continue llenando el formulario");
                 $(".esconder").show();
+                console.log(cedula);
 
             }
             else if(estado === 'Actualizar')
             {
               alert("Usted debe actualizar sus datos.");
               window.location.replace("updateUsuario.html");
+              console.log(cedula);
             }
             else 
             {
               alert("Ya usted ha participado. Redirigiendo a la pagina de inicio");
               window.location.replace("index.html");
+              console.log(cedula);
             }
     });
       });
