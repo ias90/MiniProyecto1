@@ -65,16 +65,16 @@
 <div class="hola">
 <div class="container">
     <h3>Validaremos su cedula primero</h3>
-  <form name="registro" novalidate>
+  <form name="registro2" novalidate>
     <div class="row">
       <section class="input-field col s12 m6">
         <label for="Acedula">Cedula:</label>
         <input type="text" ng-model="data.Acedula" id="Acedula" name="Acedula" required pattern="[0-9]+">
-        <div ng-messages="registro.Acedula.$error" ng-messages-include="errores.html" ng-hide="registro.Acedula.$pristine"></div>
+        <div ng-messages="registro2.Acedula.$error" ng-messages-include="errores.html" ng-hide="registro2.Acedula.$pristine"></div>
       </section>
     </div>
 
-    <button  class="btn waves-effect waves-light" id="validarCedula" >Actualizar
+    <button  ng-disabled="registro2.$invalid" class="btn waves-effect waves-light" id="validarCedula" >Actualizar
       <i class="mdi-content-send right"></i>
     </button>
   </form>
