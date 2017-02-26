@@ -75,7 +75,7 @@
             <div class="row">
               <section class="input-field col s12">
                 <label for="historia">Cuentanos sobre tu mascota:</label>
-                <textarea class="materialize-textarea" id="historia" ng-model="data.historia" name="historia" required pattern="[ñáéíóú,.\w ]+"></textarea>
+                <textarea class="materialize-textarea" id="historia" ng-model="data.historia" maxlength="6" name="historia" required pattern="[ñáéíóú,.\w ]+"></textarea>
                 <div ng-messages="registro.historia.$error" ng-messages-include="errores.html" ng-hide="registro.historia.$pristine"></div>
               </section>
             </div>

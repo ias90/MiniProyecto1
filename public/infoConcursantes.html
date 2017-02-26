@@ -6,6 +6,7 @@
     <!-- font family - google fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-orange.min.css"/>
+ <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Open+Sans'>
     <link rel="stylesheet" href="css/w3.css">
     <link rel="stylesheet" type="text/css" href="css/dialog-polyfill.css" />
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
@@ -66,6 +67,81 @@
     }
 }
 
+
+
+body {
+  font-family: "Open Sans", sans-serif;
+  line-height: 1.25;
+}
+table {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  table-layout: fixed;
+}
+table caption {
+  font-size: 1.5em;
+  margin: .5em 0 .75em;
+}
+table tr {
+  background: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: .35em;
+}
+table th,
+table td {
+  padding: .625em;
+  text-align: center;
+}
+table th {
+  font-size: .85em;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+@media screen and (max-width: 600px) {
+  table {
+    border: 0;
+  }
+  table caption {
+    font-size: 1.3em;
+  }
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+  table tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: .625em;
+  }
+  table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: .8em;
+    text-align: right;
+  }
+  table td:before {
+    /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  table td:last-child {
+    border-bottom: 0;
+  }
+}
 
 
   </style>
@@ -157,16 +233,16 @@
         <table id="tabla" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" align="center">
           <thead>
           <tr>
-            <th style="text-align:center;">Nombre</th>
-            <th style="text-align:center;">Apellido</th>
-            <th style="text-align:center;">Cedula</th>
-            <th style="text-align:center;">Telefono</th>
-            <th style="text-align:center;">Email</th>
-            <th style="text-align:center;">Mascota</th>
-            <th style="text-align:center;">Edad</th>
-            <th style="text-align:center;">Historia</th>
-            <th style="text-align:center;">Adoptado</th>
-            <th style="text-align:center;">Estado</th>
+            <th style="text-align:center;" scope="col">Nombre</th>
+            <th style="text-align:center;" scope="col">Apellido</th>
+            <th style="text-align:center;" scope="col">Cedula</th>
+            <th style="text-align:center;" scope="col">Telefono</th>
+            <th style="text-align:center;" scope="col">Email</th>
+            <th style="text-align:center;" scope="col">Mascota</th>
+            <th style="text-align:center;" scope="col">Edad</th>
+            <th style="text-align:center;" scope="col">Historia</th>
+            <th style="text-align:center;" scope="col">Adoptado</th>
+            <th style="text-align:center;" scope="col">Estado</th>
             <th></th>
             <th></th>
             <th></th>
@@ -213,20 +289,20 @@
             var adoptado=hijo.child("Mascota").child("Adoptado").val();
             var historia=hijo.child("Mascota").child("Historia").val();
 
-          var nuevaFila = $('<tr><td style="text-align:center;"><p>' +nombre+
-            '</p></td><td style="text-align:center;"><p>' +apellido+
-            '</p></td><td style="text-align:center;"><p>' +cedula+
-            '</p></td><td style="text-align:center;"><p>' +telefono+
-            '</p></td><td style="text-align:center;"><p>' +email+
-            '</p></td><td style="text-align:center;"><p>' +nombreM+
-            '</p></td><td style="text-align:center;"><p>' +edad+
-            '</p></td><td style="text-align:center;"><p>' +historia+
-            '</p></td><td style="text-align:center;"><p>' +adoptado+
-            '</p></td><td style="text-align:center;"><p>' +estado+
+          var nuevaFila = $('<tbody><tr><td style="text-align:center;" data-label="Nombre"><p>' +nombre+
+            '</p></td><td style="text-align:center;" scope="row" data-label="Apellido"><p>' +apellido+
+            '</p></td><td style="text-align:center;" scope="row" data-label="Cedula"><p>' +cedula+
+            '</p></td><td style="text-align:center;" scope="row" data-label="Telefono"><p>' +telefono+
+            '</p></td><td style="text-align:center;" scope="row" data-label="Email"><p>' +email+
+            '</p></td><td style="text-align:center;" scope="row" data-label="Mascota"><p>' +nombreM+
+            '</p></td><td style="text-align:center;" scope="row" data-label="Edad"><p>' +edad+
+            '</p></td><td style="text-align:center;" scope="row" data-label="Historia"><p>' +historia+
+            '</p></td><td style="text-align:center;" scope="row" data-label="Adoptado"><p>' +adoptado+
+            '</p></td><td style="text-align:center;" scope="row" data-label="Estado"><p>' +estado+
             '</p><td><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick=aprobar('+cedula+')>Aprobar</button></td><p>' + 
             '</p><td><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick=actualizar('+cedula+')>Actualizar</button></td><p>' +
             '</p><td><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick=negar('+cedula+')>Negar</button></td><p>' +
-            '</p></td><td style="text-align:center;"><p>');
+            '</p></td><td style="text-align:center;"><p></tbody>');
           $("#tabla").append(nuevaFila);
         });
       });
@@ -244,6 +320,32 @@
 
   <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
   <script src="index.js"></script>
+
+<script>
+(function () {
+  var headertext = [];
+  var headers = document.querySelectorAll("thead");
+  var tablebody = document.querySelectorAll("tbody");
+  
+  for(var i = 0; i < headers.length; i++) {
+    headertext[i]=[];
+    for (var j = 0, headrow; headrow = headers[i].rows[0].cells[j]; j++) {
+      var current = headrow;
+      headertext[i].push(current.textContent.replace(/\r?\n|\r/,""));
+      }
+  } 
+  
+  if (headers.length > 0) {
+    for (var h = 0, tbody; tbody = tablebody[h]; h++) {
+      for (var i = 0, row; row = tbody.rows[i]; i++) {
+        for (var j = 0, col; col = row.cells[j]; j++) {
+          col.setAttribute("data-th", headertext[h][j]);
+        } 
+      }
+    }
+  }
+} ());
+</script>
 
 </body>
 </html>
