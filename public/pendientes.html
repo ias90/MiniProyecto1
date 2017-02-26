@@ -147,13 +147,13 @@
       <!--  LO DEMAS AQUI  -->
     
 <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" href="negados.html">Lista de Negados</a>
-<a class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" href="pendientes.html">Lista de Pendientes</a>
 <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" href="aprobados.html">Lista de Aprobados</a>
 <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" href="modificar.html">Lista de Modificar</a>
+<a class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" href="loginAdmin.html">Lista de Completa</a>
 
 
-<main class="mdl-layout__content mdl-color--indigo-100">
-        <div class="mdl-grid demo-content" style="overflow-x:auto;">
+<main class="mdl-layout__content mdl-color--indigo-100" style="overflow-x:auto;">
+        <div class="mdl-grid demo-content">
         <table id="tabla" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" align="center">
           <thead>
           <tr>
@@ -199,51 +199,54 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script>
       
-      var ref = firebase.database().ref().child('Entrada');
-      var tabla= $("#tabla").val();
-      ref.once('value', snap=>{
-        snap.forEach(hijo=>{
-            var estado=hijo.child("Estatus").val();
-            var nombre=hijo.child("Nombre").val();
-            var apellido=hijo.child("Apellido").val();
-            var telefono=hijo.child("Telefono").val();
-            var cedula=hijo.child("Cedula").val();
-            var email=hijo.child("Email").val();
-            var nombreM=hijo.child("Mascota").child("NombreM").val();
-            var edad=hijo.child("Mascota").child("Edad").val();
-            var adoptado=hijo.child("Mascota").child("Adoptado").val();
-            var historia=hijo.child("Mascota").child("Historia").val();
-
-          var nuevaFila = $('<tr><td style="text-align:center;"><p>' +nombre+
-            '</p></td><td style="text-align:center;"><p>' +apellido+
-            '</p></td><td style="text-align:center;"><p>' +cedula+
-            '</p></td><td style="text-align:center;"><p>' +telefono+
-            '</p></td><td style="text-align:center;"><p>' +email+
-            '</p></td><td style="text-align:center;"><p>' +nombreM+
-            '</p></td><td style="text-align:center;"><p>' +edad+
-            '</p></td><td style="text-align:center;"><p>' +historia+
-            '</p></td><td style="text-align:center;"><p>' +adoptado+
-            '</p></td><td style="text-align:center;"><p>' +estado+
-            '</p><td><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick=aprobar('+cedula+')>Aprobar</button></td><p>' + 
-            '</p><td><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick=actualizar('+cedula+')>Actualizar</button></td><p>' +
-            '</p><td><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick=negar('+cedula+')>Negar</button></td><p>' +
-            '</p></td><td style="text-align:center;"><p>');
-          $("#tabla").append(nuevaFila);
-        });
-      });
-    
       function aprobar(cedula){
         firebase.database().ref('Entrada/'+cedula+'/Estatus').set("Aprobada");
-        window.location.reload();
       };
       function actualizar(cedula){
         firebase.database().ref('Entrada/'+cedula+'/Estatus').set("Actualizar");
-        window.location.reload();
       };
       function negar(cedula){
         firebase.database().ref('Entrada/'+cedula+'/Estatus').set("Negada");
-        window.location.reload();
       };
+
+//aprobado    
+    var ref = firebase.database().ref().child('Entrada');
+          var tabla= $("#tabla").val();
+          ref.once('value', snap=>{
+
+            snap.forEach(hijo=>{
+                var estado=hijo.child("Estatus").val();
+                var nombre=hijo.child("Nombre").val();
+                var apellido=hijo.child("Apellido").val();
+                var telefono=hijo.child("Telefono").val();
+                var cedula=hijo.child("Cedula").val();
+                var email=hijo.child("Email").val();
+                var nombreM=hijo.child("Mascota").child("NombreM").val();
+                var edad=hijo.child("Mascota").child("Edad").val();
+                var adoptado=hijo.child("Mascota").child("Adoptado").val();
+                var historia=hijo.child("Mascota").child("Historia").val();
+
+                if(estado === 'Pendiente')
+                {
+                  var nuevaFila = $('<tr><td style="text-align:center;"><p>' +nombre+
+                  '</p></td><td style="text-align:center;"><p>' +apellido+
+                  '</p></td><td style="text-align:center;"><p>' +cedula+
+                  '</p></td><td style="text-align:center;"><p>' +telefono+
+                  '</p></td><td style="text-align:center;"><p>' +email+
+                  '</p></td><td style="text-align:center;"><p>' +nombreM+
+                  '</p></td><td style="text-align:center;"><p>' +edad+
+                  '</p></td><td style="text-align:center;"><p>' +historia+
+                  '</p></td><td style="text-align:center;"><p>' +adoptado+
+                  '</p></td><td style="text-align:center;"><p>' +estado+
+                  '</p><td><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick=aprobar('+cedula+')>Aprobar</button></td><p>' + 
+                  '</p><td><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick=actualizar('+cedula+')>Actualizar</button></td><p>' +
+                  '</p><td><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick=negar('+cedula+')>Negar</button></td><p>' +
+                  '</p></td><td style="text-align:center;"><p>');
+                  $("#tabla").append(nuevaFila);
+               }
+              
+            });
+          });
     </script>
 
   <script src="https://code.jquery.com/jquery-3.1.0.js"></script>

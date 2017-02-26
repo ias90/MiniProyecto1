@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
-	<head>
+  <head>
   <meta charset="utf-8">
-		<title>My Pet</title>
+    <title>My Pet</title>
     <!-- font family - google fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-orange.min.css"/>
@@ -14,104 +14,143 @@
     <!-- main stylesheet -->
     <link rel="stylesheet" href="css/style.css" />  
 
+
       <!-- Fijar foto de fondo  -->
-    <style>
-      body { 
-        background-image: url("images/Pets-2.jpg");
-        background-attachment: local;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: 1000px;
-      }
-
-      .bgimg-1 {
-      background-attachment: local;
-      background-position: center;
+  <style>
+    body { 
+      background-image: url("images/Pets.jpg");
+      background-attachment: fixed;
       background-repeat: no-repeat;
-      background-size: cover;
-      position: absolute;
-      top: 1%;
-      left: 50%;
-      }
-
-      .bgimg-2 {
-      background-attachment: local;
       background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
-      position: absolute;
-      top: 60%;
-      left: 50%;
-      }
+      background-size: 1500px;
+    }
 
-      .mdl-button-2 {
-      background-attachment: local;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
-      position: absolute;
-      top: 50%;
-      left: 61%;
-      }
+    .bgimg-1 {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    top: 1%;
+    left: 50%;
+    }
 
-          .mdl-button-3{
-          
-          top: 00%;
-          left: 0%;
-      }
+    .bgimg-2 {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    }
 
-      /* First image (Logo. Full height) */
-          .bgimg-1 {
-          min-height: 100%;
-          }
+    .mdl-button-2 {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    top: 50%;
+    left: 61%;
+}
 
-          @media only screen and (max-device-width: 1024px) {
-          .bgimg-1{
-              background-attachment: scroll;
-          }
-      }
-    </style>
+/* First image (Logo. Full height) */
+    .bgimg-1 {
+    min-height: 100%;
+    }
+
+    @media only screen and (max-device-width: 1024px) {
+    .bgimg-1{
+        background-attachment: scroll;
+    }
+}
 
 
-	</head>
-	<body>
+
+  </style>
+
+
+  </head>
+  <body>
+
+      <!-- LOGIN DIALOG -->
+    <dialog id="loginDialog" class="mdl-dialog">
+      <h4 class="mdl-dialog__title">Sign in</h4>
+      <div class="mdl-dialog__content">
+        <p id="loginError"></p>
+
+
+ <!-- SIGN UP DIALOG 
+    <dialog id="signUpDialog" class="mdl-dialog">
+      <h4 class="mdl-dialog__title">Sign up</h4>
+      <div class="mdl-dialog__content">
+        <p id="signUpError"></p>-->
+
         
-<!-- MAIN PAGE CONTENT -->
+        <!-- barra para ingresar email y password -->
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" id="loginEmail">
+            <label class="mdl-textfield__label" for="sample3">Email...</label>
+          </div>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" id="loginPassword">
+            <label class="mdl-textfield__label" for="sample3">Password...</label>
+          </div>
+          <!-- FIN barra para ingresar email y password -->
 
-    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      </div>
+      <div class="mdl-dialog__actions">
+      <!-- BOTONES PARA INGRESAR Y CREAR CUENTA  -->
+        <button id="loginBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Sign in</button>
+
+        <a id="regresar" href="index.html" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Regresar</a>
+ 
+ <!--
+        <a href="signup.html" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Sign up</a>
+        -->
+
+        <div id="loginProgress" class="mdl-spinner mdl-js-spinner is-active"></div>
+    
+      </div>
+      
+    </dialog>
+
+<div class="login-cover">
+    <div class="page-loader mdl-spinner mdl-js-spinner is-active"></div>
+  </div>
+
+
+    <!-- MAIN PAGE CONTENT -->
+
+    <div class="mdl-layout mdl-js-layout">
       <header class="mdl-layout__header">
         <div class="mdl-layout-icon"></div>
         <div class="mdl-layout__header-row">
-
-        <button id="demo-menu-lower-left"
-                class="mdl-button mdl-js-button mdl-button--icon">
-          <i class="material-icons">more_vert</i>
-        </button>
-
-        <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
-            for="demo-menu-lower-left">
-          <li class="mdl-menu__item">Some Action</li>
-          <li class="mdl-menu__item mdl-menu__item--full-bleed-divider">Another Action</li>
-          <li disabled class="mdl-menu__item">Disabled Action</li>
-          <li class="mdl-menu__item">Yet Another Action</li>
-        </ul>
-
-
           <span class="mdl-layout__title">My Pet
             <span class="page-title-span"> | </span>
             <span class="page-title-span"> Home </span>
+            
           </span>
-
           <div class="mdl-layout-spacer"></div>
           <nav class="mdl-navigation">
-            <button id="signOutBtn"  class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect"><i class="material-icons mdl-js-ripple-effect">exit_to_app</i>
-            Log Out
-            </button>
+
+          <button id="signOutBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect"><i class="material-icons mdl-js-ripple-effect">exit_to_app</i>
+            Sign Out
+          </button>
+
           </nav>
         </div>
       </header>
 
-      
+
+      <!--  LO DEMAS AQUI  -->
+    
+<a class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" href="negados.html">Lista de Negados</a>
+<a class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" href="pendientes.html">Lista de Pendientes</a>
+<a class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" href="aprobados.html">Lista de Aprobados</a>
+<a class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" href="modificar.html">Lista de Modificar</a>
+
 
 <main class="mdl-layout__content mdl-color--indigo-100">
         <div class="mdl-grid demo-content">
@@ -120,8 +159,13 @@
           <tr>
             <th style="text-align:center;">Nombre</th>
             <th style="text-align:center;">Apellido</th>
-            <th style="text-align:center;">Numero de Cedula</th>
-            <th style="text-align:center;">Nombre de la Mascota</th>
+            <th style="text-align:center;">Cedula</th>
+            <th style="text-align:center;">Telefono</th>
+            <th style="text-align:center;">Email</th>
+            <th style="text-align:center;">Mascota</th>
+            <th style="text-align:center;">Edad</th>
+            <th style="text-align:center;">Historia</th>
+            <th style="text-align:center;">Adoptado</th>
             <th style="text-align:center;">Estado</th>
             <th></th>
             <th></th>
@@ -131,14 +175,10 @@
         </table>
       </main>
 
-
-
+     
     </div>
 
-    
-     
-  </body>
-
+    <!-- FIN MAIN CONTENT -->
 
 
   <script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
@@ -154,9 +194,10 @@
     firebase.initializeApp(config);
   </script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script>
-//concurso-mi-mascota
+      
       var ref = firebase.database().ref().child('Entrada');
       var tabla= $("#tabla").val();
       ref.once('value', snap=>{
@@ -172,29 +213,34 @@
             var adoptado=hijo.child("Mascota").child("Adoptado").val();
             var historia=hijo.child("Mascota").child("Historia").val();
 
-
-            //var foto1=hijo.child("Mascota").child("Fotos").child("Foto1").val();
-            //var foto2=hijo.child("Mascota").child("Fotos").child("Foto1").val();
-            //var foto3=hijo.child("Mascota").child("Fotos").child("Foto1").val();
-            
-
-            //var refFoto1=firebase.storage().ref('fotos_concurso/' + foto1).getDownloadURL();
-
           var nuevaFila = $('<tr><td style="text-align:center;"><p>' +nombre+
             '</p></td><td style="text-align:center;"><p>' +apellido+
             '</p></td><td style="text-align:center;"><p>' +cedula+
+            '</p></td><td style="text-align:center;"><p>' +telefono+
+            '</p></td><td style="text-align:center;"><p>' +email+
             '</p></td><td style="text-align:center;"><p>' +nombreM+
+            '</p></td><td style="text-align:center;"><p>' +edad+
+            '</p></td><td style="text-align:center;"><p>' +historia+
+            '</p></td><td style="text-align:center;"><p>' +adoptado+
             '</p></td><td style="text-align:center;"><p>' +estado+
-            '</p></td><td style="text-align:center;"><p>' + '<a href="">Show</a>' +
-            '</p></td><td style="text-align:center;"><p>' + '<a href="">Edit</a>' +
-            '</p></td><td style="text-align:center;"><p>' + '<a href="">Delete</a>' +
+            '</p><td><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick=aprobar('+cedula+')>Aprobar</button></td><p>' + 
+            '</p><td><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick=actualizar('+cedula+')>Actualizar</button></td><p>' +
+            '</p><td><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick=negar('+cedula+')>Negar</button></td><p>' +
             '</p></td><td style="text-align:center;"><p>');
           $("#tabla").append(nuevaFila);
         });
       });
+    
+      function aprobar(cedula){
+        firebase.database().ref('Entrada/'+cedula+'/Estatus').set("Aprobada");
+      };
+      function actualizar(cedula){
+        firebase.database().ref('Entrada/'+cedula+'/Estatus').set("Actualizar");
+      };
+      function negar(cedula){
+        firebase.database().ref('Entrada/'+cedula+'/Estatus').set("Negada");
+      };
     </script>
-
-
 
   <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
   <script src="index.js"></script>
